@@ -25,7 +25,7 @@ services:
         BUILD_ENV: development
     environment:
       - NODE_ENV=development
-      - MONGODB_URI=mongodb://mongo:27017/mydatabase
+      - MONGODB_URI=mongodb://mongo:27017/boxing-db
     ports:
       - "3001:3000"
     volumes:
@@ -39,7 +39,11 @@ services:
     image: mongo:4.4
     ports:
       - "27017:27017"
+    environment:
+      DB_NAME: boxing-db
+      MONGO_INITDB_DATABASE: boxing-db
     volumes:
+      - ./.docker/boxing-training-app-backend/seed-mongodb.js:/docker-entrypoint-initdb.d/seed-mongodb.js
       - mongo-data:/data/db
 
 volumes:
