@@ -53,17 +53,41 @@ db.logs.insert([
 db.workouts.insert([
     {
         workoutId:"wo01",
-        activitiesId: "2",
-        workouts:[
-            "wo01","wo02"
-        ]
+        activitiesId: "a01",
+        questionId:"q01"
     },
     {
-        logId:"log02",
-        dateTime: "20240626",
-        workouts:[
-            "wo01","wo02"
-        ]
+        workoutId:"wo02",
+        activitiesId: "a02",
+        questionId:"q02"
+    },
+])
+
+db.activities.insert([
+    {
+        activitiesId: "a01",
+        skippingId:"s01",
+        sandbagId: "sb01",
+        shadowBoxingId: "sw01"
+    },
+    {
+        activitiesId: "a02",
+        skippingId:"s02",
+        sandbagId: "sb02",
+        shadowBoxingId: "sw02"
+    },
+])
+
+db.questions.insert([
+    {
+        questionId: "q01",
+        timeAvail: 30,
+        intensityLv: "mid"
+    },
+    {
+        questionId: "q02",
+        timeAvail: 60,
+        intensityLv: "low"
     },
 ])
 
