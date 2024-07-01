@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "middleware/db-connect";
-// import Locations from "mongoose/locations/model";
 import { findAllUsers } from "mongoose/users/services";
 
 export default async function handler(
