@@ -2,191 +2,232 @@ print("Seeding the collection 'users' in the 'boxing-db' db");
 
 db.users.insert([
     {
-        name: "name01",
-        logEntities:[
-            "log01","log02"
-        ]
+        "_id": "user01",
+        "name": "John Doe",
+        "logs": ["log01", "log02"]
     },
     {
-        name: "name02",
-        logEntities:[
-            "log01","log02"
-        ]
+        "_id": "user02",
+        "name": "Jane Smith",
+        "logs": ["log03", "log04"]
     },
     {
-        name: "name03",
-        logEntities:[
-            "log01","log02"
-        ]
-    },
-    {
-        name: "name04",
-        logEntities:[
-            "log01","log02"
-        ]
-    },
-    {
-        name: "name05",
-        logEntities:[
-            "log01","log02"
-        ]
-    },
+        "_id": "user03",
+        "name": "Mike Johnson",
+        "logs": ["log05"]
+    }
 ]);
 
 db.logs.insert([
     {
-        logId:"log01",
-        dateTime: "20240625",
-        workouts:[
-            "wo01","wo02"
-        ]
+        "_id": "log01",
+        "userId": "user01",
+        "date": { "$date": "2024-06-25T00:00:00Z" },
+        "workouts": ["wo01", "wo02"]
     },
     {
-        logId:"log02",
-        dateTime: "20240626",
-        workouts:[
-            "wo01","wo02"
-        ]
+        "_id": "log02",
+        "userId": "user01",
+        "date": { "$date": "2024-06-26T00:00:00Z" },
+        "workouts": ["wo03"]
     },
+    {
+        "_id": "log03",
+        "userId": "user02",
+        "date": { "$date": "2024-06-25T00:00:00Z" },
+        "workouts": ["wo04"]
+    },
+    {
+        "_id": "log04",
+        "userId": "user02",
+        "date": { "$date": "2024-06-27T00:00:00Z" },
+        "workouts": ["wo05", "wo06"]
+    },
+    {
+        "_id": "log05",
+        "userId": "user03",
+        "date": { "$date": "2024-06-28T00:00:00Z" },
+        "workouts": ["wo07"]
+    }
 ])
 
 db.workouts.insert([
     {
-        workoutId:"wo01",
-        activitiesId: "a01",
-        questionId:"q01"
+        "_id": "wo01",
+        "logId": "log01",
+        "question": {
+            "timeAvailable": 30,
+            "intensityLevel": "mid"
+        },
+        "activities": {
+            "skipping": {
+                "roundsCompleted": 0,
+                "totalRounds": 3,
+                "totalTime": 540
+            },
+            "sandbag": {
+                "roundsCompleted": 0,
+                "totalRounds": 3,
+                "totalTime": 540
+            },
+            "shadowBoxing": {
+                "roundsCompleted": 0,
+                "totalRounds": 3,
+                "totalTime": 540
+            }
+        }
     },
     {
-        workoutId:"wo02",
-        activitiesId: "a02",
-        questionId:"q02"
+        "_id": "wo02",
+        "logId": "log01",
+        "question": {
+            "timeAvailable": 45,
+            "intensityLevel": "high"
+        },
+        "activities": {
+            "skipping": {
+                "roundsCompleted": 0,
+                "totalRounds": 4,
+                "totalTime": 720
+            },
+            "sandbag": {
+                "roundsCompleted": 0,
+                "totalRounds": 4,
+                "totalTime": 720
+            },
+            "shadowBoxing": {
+                "roundsCompleted": 0,
+                "totalRounds": 4,
+                "totalTime": 720
+            }
+        }
     },
+    {
+        "_id": "wo03",
+        "logId": "log02",
+        "question": {
+            "timeAvailable": 60,
+            "intensityLevel": "low"
+        },
+        "activities": {
+            "skipping": {
+                "roundsCompleted": 0,
+                "totalRounds": 2,
+                "totalTime": 360
+            },
+            "sandbag": {
+                "roundsCompleted": 0,
+                "totalRounds": 2,
+                "totalTime": 360
+            },
+            "shadowBoxing": {
+                "roundsCompleted": 0,
+                "totalRounds": 2,
+                "totalTime": 360
+            }
+        }
+    },
+    {
+        "_id": "wo04",
+        "logId": "log03",
+        "question": {
+            "timeAvailable": 40,
+            "intensityLevel": "mid"
+        },
+        "activities": {
+            "skipping": {
+                "roundsCompleted": 0,
+                "totalRounds": 3,
+                "totalTime": 540
+            },
+            "sandbag": {
+                "roundsCompleted": 0,
+                "totalRounds": 3,
+                "totalTime": 540
+            },
+            "shadowBoxing": {
+                "roundsCompleted": 0,
+                "totalRounds": 3,
+                "totalTime": 540
+            }
+        }
+    },
+    {
+        "_id": "wo05",
+        "logId": "log04",
+        "question": {
+            "timeAvailable": 50,
+            "intensityLevel": "high"
+        },
+        "activities": {
+            "skipping": {
+                "roundsCompleted": 0,
+                "totalRounds": 5,
+                "totalTime": 900
+            },
+            "sandbag": {
+                "roundsCompleted": 0,
+                "totalRounds": 5,
+                "totalTime": 900
+            },
+            "shadowBoxing": {
+                "roundsCompleted": 0,
+                "totalRounds": 5,
+                "totalTime": 900
+            }
+        }
+    },
+    {
+        "_id": "wo06",
+        "logId": "log04",
+        "question": {
+            "timeAvailable": 35,
+            "intensityLevel": "mid"
+        },
+        "activities": {
+            "skipping": {
+                "roundsCompleted": 0,
+                "totalRounds": 3,
+                "totalTime": 540
+            },
+            "sandbag": {
+                "roundsCompleted": 0,
+                "totalRounds": 3,
+                "totalTime": 540
+            },
+            "shadowBoxing": {
+                "roundsCompleted": 0,
+                "totalRounds": 3,
+                "totalTime": 540
+            }
+        }
+    },
+    {
+        "_id": "wo07",
+        "logId": "log05",
+        "question": {
+            "timeAvailable": 55,
+            "intensityLevel": "low"
+        },
+        "activities": {
+            "skipping": {
+                "roundsCompleted": 0,
+                "totalRounds": 2,
+                "totalTime": 360
+            },
+            "sandbag": {
+                "roundsCompleted": 0,
+                "totalRounds": 2,
+                "totalTime": 360
+            },
+            "shadowBoxing": {
+                "roundsCompleted": 0,
+                "totalRounds": 2,
+                "totalTime": 360
+            }
+        }
+    }
 ])
 
-db.activities.insert([
-    {
-        activitiesId: "a01",
-        skippingId:"s01",
-        sandbagId: "sb01",
-        shadowBoxingId: "sw01"
-    },
-    {
-        activitiesId: "a02",
-        skippingId:"s02",
-        sandbagId: "sb02",
-        shadowBoxingId: "sw02"
-    },
-])
 
-db.questions.insert([
-    {
-        questionId: "q01",
-        timeAvail: 30,
-        intensityLv: "mid"
-    },
-    {
-        questionId: "q02",
-        timeAvail: 60,
-        intensityLv: "low"
-    },
-])
-
-db.skippings.insert([
-    {
-        skippingId: "s01",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-    {
-        skippingId: "s02",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-    {
-        skippingId: "s03",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-    {
-        skippingId: "s04",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-    {
-        skippingId: "s05",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-]);
-
-db.sandbags.insert([
-    {
-        sandbagId: "sb01",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-    {
-        sandbagId: "sb02",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-    {
-        sandbagId: "sb03",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-    {
-        sandbagId: "sb04",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-    {
-        sandbagId: "sb05",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-]);
-
-db.shadowBoxings.insert([
-    {
-        shadowBoxingId: "sb01",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-    {
-        shadowBoxingId: "sb02",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-    {
-        shadowBoxingId: "sb03",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-    {
-        shadowBoxingId: "sb04",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-    {
-        shadowBoxingId: "sb05",
-        roundComp: 0,
-        totalRound:3,
-        totalTime:540
-    },
-]);
 print("Completed seeding MongoDB!");

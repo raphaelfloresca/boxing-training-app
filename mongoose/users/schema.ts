@@ -2,17 +2,19 @@ import { Schema, InferSchemaType } from "mongoose";
 
 export const UserSchema: Schema = new Schema<UserType>({
     _id: {
-        type: "String",
+        type: String,
         required: true,
     },
     name: {
-        type: "String",
+        type: String,
         required: true,
     },
-    logEntities: {
+    logs: {
         type: [String],
-        required: true,
+        default: [],
     }
+}, {
+    timestamps: true
 });
 
-export declare type UserType = InferSchemaType<typeof UserSchema>;
+export type UserType = InferSchemaType<typeof UserSchema>;
