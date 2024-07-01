@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 interface User {
   _id: string;
   name: string;
-  logEntites: string[];
+  logEntities: string[];
 }
 
 const UserList = () => {
@@ -39,7 +39,7 @@ const UserList = () => {
         {users.map((user) => (
           <li key={user._id}>
             <p>Name: {user.name}</p>
-            <p>Email: {user.logEntites[0]}</p>
+            <p>LogEntities: {user.logEntities}</p>
           </li>
         ))}
       </ul>

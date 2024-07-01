@@ -3,31 +3,31 @@ print("Seeding the collection 'users' in the 'boxing-db' db");
 db.users.insert([
     {
         name: "name01",
-        logEntites:[
+        logEntities:[
             "log01","log02"
         ]
     },
     {
         name: "name02",
-        logEntites:[
+        logEntities:[
             "log01","log02"
         ]
     },
     {
         name: "name03",
-        logEntites:[
+        logEntities:[
             "log01","log02"
         ]
     },
     {
         name: "name04",
-        logEntites:[
+        logEntities:[
             "log01","log02"
         ]
     },
     {
         name: "name05",
-        logEntites:[
+        logEntities:[
             "log01","log02"
         ]
     },
