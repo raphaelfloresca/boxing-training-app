@@ -25,7 +25,6 @@ services:
         BUILD_ENV: development
     environment:
       - NODE_ENV=development
-      - MONGODB_URI=mongodb://mongo:27017/boxing-db
     ports:
       - "3001:3000"
     volumes:
