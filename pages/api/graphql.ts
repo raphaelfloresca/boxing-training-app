@@ -1,13 +1,24 @@
 import {ApolloServer, BaseContext} from "@apollo/server";
 import {startServerAndCreateNextHandler} from "@as-integrations/next";
-import schema from "graphql/users/schema";
+import { mergeSchemas } from '@graphql-tools/schema';
+import userSchema from "graphql/users/schema";
+import logSchema from "graphql/logs/schema";
+import workoutSchema from "graphql/workouts/schema";
 
 import dbConnect from "middleware/db-connect";
 
 import {NextApiHandler, NextApiRequest, NextApiResponse} from "next";
 
+const mergedSchema = mergeSchemas({
+    schemas: [
+      userSchema,
+      logSchema,
+      workoutSchema
+    ],
+  });
+
 const server = new ApolloServer<BaseContext>({
-    schema
+    schema: mergedSchema
 });
 
 const handler = startServerAndCreateNextHandler(server, {
