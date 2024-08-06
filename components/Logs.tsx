@@ -8,14 +8,13 @@ interface PropsInterface {
 
 const Logs = (props: PropsInterface): JSX.Element => {
   const { logId } = props;
-  const [log, setLog] = useState<LogType | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [log, setLog] = useState<LogType | null>(null); const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchLog = async () => {
       try {
-        const response = await fetch("/api/graphql", {
+        const response = await fetch("/api/graphql2", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -35,12 +34,12 @@ const Logs = (props: PropsInterface): JSX.Element => {
         });
         const result = await response.json();
         if (response.ok) {
-          setLog(result.data.logById);  
+          setLog(result.data.logById);
         } else {
           setError(result.errors[0].message);
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : String(err));  
+        setError(err instanceof Error ? err.message : String(err));
       } finally {
         setLoading(false);
       }
