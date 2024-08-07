@@ -1,14 +1,12 @@
 "use client"
+import React from 'react';
 import { LogType } from "mongoose/logs/schema";
 import { useEffect, useState } from "react";
 
-interface PropsInterface {
-  logId: string;
-}
-
-const Logs = (props: PropsInterface): JSX.Element => {
-  const { logId } = props;
-  const [log, setLog] = useState<LogType | null>(null); const [loading, setLoading] = useState<boolean>(true);
+const Logs = (props: LogType): JSX.Element => {
+  const { _id } = props;
+  const [log, setLog] = useState<LogType | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -29,7 +27,7 @@ const Logs = (props: PropsInterface): JSX.Element => {
                 }
               }
             `,
-            variables: { id: logId },
+            variables: { id: _id },
           }),
         });
         const result = await response.json();
@@ -45,7 +43,7 @@ const Logs = (props: PropsInterface): JSX.Element => {
       }
     };
     fetchLog();
-  }, [logId]);
+  }, [_id]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -56,18 +54,22 @@ const Logs = (props: PropsInterface): JSX.Element => {
         <ul>
           <li>
             <b>ID: </b>
-            {log._id}
+            {String(log._id)}
           </li>
           <li>
             <b>User ID: </b>
-            {log.userId}
+            {String(log.userId)}
           </li>
           <li>
             <b>Workouts: </b>
             <ul>
-              {log.workouts.map((workout, index) => (
-                <li key={index}>{workout}</li>
-              ))}
+              {Array.isArray(log.workouts) ? (
+                log.workouts.map((workout: string, index: number) => (
+                  <li key={index}>{workout}</li>
+                ))
+              ) : (
+                <li>No workouts available</li>
+              )}
             </ul>
           </li>
         </ul>
