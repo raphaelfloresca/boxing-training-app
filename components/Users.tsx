@@ -14,7 +14,7 @@ const Users = (props: PropsInterface): JSX.Element => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchLog = async () => {
+        const fetchData = async () => {
             try {
                 const response = await fetch("/api/graphql", {
                     method: "POST",
@@ -46,7 +46,7 @@ const Users = (props: PropsInterface): JSX.Element => {
                 setLoading(false);
             }
         };
-        fetchLog();
+        fetchData();
     }, [userId]);
 
     if (loading) return <div>Loading...</div>;

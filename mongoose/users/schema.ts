@@ -3,7 +3,7 @@ import { Schema, InferSchemaType } from "mongoose";
 export const UserSchema: Schema = new Schema<UserType>({
   _id: {
     type: String,
-    required: true,
+    required: false,
   },
   name: {
     type: String,

@@ -3,13 +3,7 @@ import { schemaComposer } from 'graphql-compose';
 import Workouts from "mongoose/workouts/model";
 
 const customizationOptions = {};
-let WorkoutTC;
-
-if (schemaComposer.has('workouts')) {
-  WorkoutTC = schemaComposer.getOTC('workouts');
-} else {
-  WorkoutTC = composeMongoose(Workouts, customizationOptions);
-}
+const WorkoutTC = composeMongoose(Workouts, customizationOptions);
 
 schemaComposer.Query.addFields({
     workoutById: WorkoutTC.mongooseResolvers.findById(),

@@ -1,15 +1,9 @@
 import { composeMongoose } from 'graphql-compose-mongoose';
 import { schemaComposer } from 'graphql-compose';
-import Users from "mongoose/users/model";
+import Users from 'mongoose/users/model';
 
 const customizationOptions = {};
-let UserTC;
-
-if (schemaComposer.has('users')) {
-  UserTC = schemaComposer.getOTC('users');
-} else {
-  UserTC = composeMongoose(Users, customizationOptions);
-}
+const UserTC = composeMongoose(Users, customizationOptions);
 
 schemaComposer.Query.addFields({
     userById: UserTC.mongooseResolvers.findById(),

@@ -3,13 +3,7 @@ import { schemaComposer } from 'graphql-compose';
 import Logs from "mongoose/logs/model";
 
 const customizationOptions = {};
-let LogTC;
-
-if (schemaComposer.has('logs')) {
-  LogTC = schemaComposer.getOTC('logs');
-} else {
-  LogTC = composeMongoose(Logs, customizationOptions);
-}
+const LogTC = composeMongoose(Logs, customizationOptions);
 
 schemaComposer.Query.addFields({
     logById: LogTC.mongooseResolvers.findById(),
