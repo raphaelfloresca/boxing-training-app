@@ -5,7 +5,7 @@ import userSchema from "graphql/users/schema"
 import logSchema from "graphql/logs/schema"
 import workoutSchema from "graphql/workouts/schema"
 import dbConnect from "middleware/db-connect"
-import { NextResponse, NextRequest } from 'next/server'
+import { NextRequest } from 'next/server'
 
 const mergedSchema = mergeSchemas({
   schemas: [
@@ -47,13 +47,11 @@ async function dbHandler(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  const headers = await corsHandler(req);
   await dbHandler(req);
   return handler(req);
 }
 
 export async function POST(req: NextRequest) {
-  const headers = await corsHandler(req);
   await dbHandler(req);
   return handler(req);
 }

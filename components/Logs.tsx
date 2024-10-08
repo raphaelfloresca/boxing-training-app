@@ -12,7 +12,7 @@ const Logs = (props: LogType): JSX.Element => {
   useEffect(() => {
     const fetchLog = async () => {
       try {
-        const response = await fetch("/api/graphql2", {
+        const response = await fetch("/api/graphql", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
