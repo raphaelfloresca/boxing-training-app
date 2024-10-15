@@ -1,25 +1,22 @@
-import UserList from "components/UserList";
-import UserInput from "components/UserInput";
 import Search from "ui/search";
-import Table from "ui/table";
-import {userMany} from "lib/data";
+import Table from "ui/user/table";
 
 export default async function Home({
   searchParams,
 }: {
   searchParams?: {
     query?: string;
+    page?: string;
   };
 }) {
   const query = searchParams?.query || '';
-  const users = userMany();
+  const currentPage = Number(searchParams?.page) || 1;
 
   return (
     <div>
       <p>Hello world!</p>
-      <UserInput />
-      <UserList />
       <Search placeholder="Search..." />
+      <Table query={query} currentPage={currentPage}/>
     </div>
   );
 }

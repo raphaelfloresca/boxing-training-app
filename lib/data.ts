@@ -1,36 +1,24 @@
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+import { UserType } from 'mongoose/users/schema';
 
 const client = new ApolloClient({
-    uri: 'https://app-dev.boxing-training-app.orb.local/api/graphql',
+    uri: 'http://localhost:3001/api/graphql',
     cache: new InMemoryCache(),
   });
 
-export async function userMany() {
-    const users = client
-      .query({
+export async function userById(id: string){
+    const users = await client
+      .query<UserType>({
         query: gql`
-          query ExampleQuery {
-            userMany {
+          query Query($id: String!) {
+            userById(_id: $id) {
               _id
               name
               logs
             }
           }
-        `})
-        return users;
-}
-
-export async function userById(id: string) {
-    const users = client
-      .query({
-        query: gql`
-          query Query($id: String!) {
-                      userById(_id: $id) {
-                        _id
-                        name
-                        logs
-                      }
-                    }
-        `})
-        return users;
+        `,
+        variables: { id },
+      });
+    return users.data.userById; // Corrected return statement
 }
