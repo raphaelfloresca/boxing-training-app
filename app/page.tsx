@@ -9,14 +9,14 @@ export default async function Home({
     page?: string;
   };
 }) {
-  const query = searchParams?.query || '';
+  const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
     <div>
       <p>Hello world!</p>
       <Search placeholder="Search..." />
-      <Table query={query} currentPage={currentPage}/>
+      <Table query={query} currentPage={currentPage} />
     </div>
   );
 }
