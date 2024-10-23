@@ -1,5 +1,5 @@
-import Search from "ui/search";
-import Table from "ui/user/table";
+import Search from "ui/Search";
+import Table from "ui/user/Table";
 
 export default async function Home({
   searchParams,

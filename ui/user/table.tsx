@@ -42,13 +42,25 @@ export default function Table({
     { loading: updateUserLoading, error: updateUserError, data: updatedUser },
   ] = useMutation(UPDATE_USER_BY_ID);
 
+  const [name, setName] = useState(users?.userById?.name || "");
+
+  const handleUpdate = () => {
+    handleNameChange({ variables: { id: users.userById._id, record: { name } } });
+  };
+
+  useEffect(() => {
+    if (users?.userById) {
+      setName(users.userById.name);
+    }
+  }, [users]);
+
   if (getUserLoading || updateUserLoading) return <p>Loading...</p>;
   if (getUserError) return <p>Error: {getUserError.message}</p>;
   if (updateUserError) return <p>Error: {updateUserError.message}</p>;
 
   return (
     <div>
-      {users ? (
+      {users.userById ? (
         <table>
           <thead>
             <tr>
@@ -62,7 +74,7 @@ export default function Table({
               <td>
                 <input
                   type="text"
-                  value={users.userById?._id || ""}
+                  value={users.userById._id}
                   readOnly
                   disabled
                 />
@@ -70,12 +82,12 @@ export default function Table({
               <td>
                 <input
                   type="text"
-                  value={users.userById?.name || ""}
-                  onChange={(e) => handleNameChange}
+                  value={name} 
+                  onChange={(e) => setName(e.target.value)} 
                 />
               </td>
               <td>
-                <button type="button">Update</button>
+                <button type="button" onClick={handleUpdate}>Update</button>
                 <button type="button">Delete</button>
               </td>
             </tr>
