@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { userById, updateByIdusersInput } from "lib/data";
-import { UserType } from "mongoose/users/schema";
+import { useQuery, useMutation, gql } from "@apollo/client";
 
 export default function Table({
   query,
@@ -11,63 +10,77 @@ export default function Table({
   query: string;
   currentPage: number;
 }) {
-  const [users, setUsers] = useState<UserType | null>(null);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const result = await userById(query) as { data: UserType };
-      setUsers(result);
-    };
-    fetchUser();
-  }, [query]);
-
-  const handleUpdate = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (users) {
-      console.log("update");
-      try {
-        await updateByIdusersInput(users._id, users.name);
-        console.log("Update successful");
-      } catch (error) {
-        console.error("Update failed", error);
+  const GET_USER_BY_ID = gql`
+    query Query($id: String!) {
+      userById(_id: $id) {
+        _id
+        name
+        logs
       }
     }
-  };
+  `;
 
-  const handleDelete = () => {
-    console.log("delete")
-  };
-
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (users) {
-      setUsers({ ...users, name: event.target.value }); // Update the users state with the new name
+  const UPDATE_USER_BY_ID = gql`
+    mutation Mutation($id: String!, $record: UpdateByIdusersInput!) {
+      userUpdateById(_id: $id, record: $record) {
+        record {
+          _id
+          name
+        }
+      }
     }
-  };
+  `;
+
+  const {
+    loading: getUserLoading,
+    error: getUserError,
+    data: users,
+  } = useQuery(GET_USER_BY_ID, { variables: { id: query } });
+
+  const [
+    handleNameChange,
+    { loading: updateUserLoading, error: updateUserError, data: updatedUser },
+  ] = useMutation(UPDATE_USER_BY_ID);
+
+  if (getUserLoading || updateUserLoading) return <p>Loading...</p>;
+  if (getUserError) return <p>Error: {getUserError.message}</p>;
+  if (updateUserError) return <p>Error: {updateUserError.message}</p>;
 
   return (
     <div>
       {users ? (
-        <form onSubmit={handleUpdate}>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input type="text" value={users._id} readOnly disabled /></td>
-                <td><input type="text" value={users.name} onChange={handleNameChange} /></td>
-                <td>
-                  <button type="submit">Update</button>
-                  <button type="button" onClick={handleDelete}>Delete</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input
+                  type="text"
+                  value={users.userById?._id || ""}
+                  readOnly
+                  disabled
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value={users.userById?.name || ""}
+                  onChange={(e) => handleNameChange}
+                />
+              </td>
+              <td>
+                <button type="button">Update</button>
+                <button type="button">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       ) : (
         <p>No such data</p>
       )}
